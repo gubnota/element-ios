@@ -50,8 +50,6 @@ static const NSTimeInterval kActionMenuComposerHeightAnimationDuration = .3;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *messageComposerContainerTrailingConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *inputContextViewHeightConstraint;
 
-@property (nonatomic, weak) UIView *voiceMessageToolbarView;
-
 @property (nonatomic, assign) CGFloat expandedMainToolbarHeight;
 
 @end
@@ -84,6 +82,8 @@ static const NSTimeInterval kActionMenuComposerHeightAnimationDuration = .3;
     // Add an accessory view to the text view in order to retrieve keyboard view.
     inputAccessoryView = [[UIView alloc] initWithFrame:CGRectZero];
     self.textView.inputAccessoryView = inputAccessoryView;
+
+    self.wysiwygHostingView.delegate = self;
 }
 
 - (void)setVoiceMessageToolbarView:(UIView *)voiceMessageToolbarView
@@ -180,12 +180,14 @@ static const NSTimeInterval kActionMenuComposerHeightAnimationDuration = .3;
 
 - (NSAttributedString *)attributedTextMessage
 {
-    return self.textView.attributedText;
+    return [[NSAttributedString alloc] initWithString:self.wysiwygHostingView.content.plainText];
+    //return self.textView.attributedText;
 }
 
 - (NSString *)textMessage
 {
-    return self.textView.text;
+    return self.wysiwygHostingView.content.plainText;
+    //return self.textView.text;
 }
 
 - (UIFont *)textDefaultFont
@@ -432,12 +434,14 @@ static const NSTimeInterval kActionMenuComposerHeightAnimationDuration = .3;
 
 - (BOOL)isFirstResponder
 {
-    return [self.textView isFirstResponder];
+    return self.wysiwygHostingView.isFirstResponder;
+    //return [self.textView isFirstResponder];
 }
 
 - (BOOL)becomeFirstResponder
 {
-    return [self.textView becomeFirstResponder];
+    return self.wysiwygHostingView.becomeFirstResponder;
+    //return [self.textView becomeFirstResponder];
 }
 
 - (void)dismissKeyboard

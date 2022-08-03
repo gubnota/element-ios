@@ -53,3 +53,6 @@ packages:
   SwiftOGG:
     url: https://github.com/vector-im/swift-ogg
     branch: main
+  WysiwygComposer:
+    url: https://github.com/aringenbach/wysiwyg-composer
+    exactVersion: 0.0.6

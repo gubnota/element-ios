@@ -16,6 +16,7 @@
 
 import Foundation
 import UIKit
+import WysiwygComposer
 
 extension RoomInputToolbarView {
     open override func sendCurrentMessage() {
@@ -38,5 +39,21 @@ extension RoomInputToolbarView {
         UIView.setAnimationsEnabled(false)
         self.attributedTextMessage = nil
         UIView.setAnimationsEnabled(true)
+    }
+}
+extension RoomInputToolbarView: WysiwygHostingViewDelegate {
+    public func requiredHeightDidChange(_ height: CGFloat) {
+        self.mainToolbarHeightConstraint.constant = height + 30
+    }
+
+    public func isEmptyContentDidChange(_ isEmpty: Bool) {
+        self.actionMenuOpened = false
+
+        UIView.animate(withDuration: 0.15) {
+            self.rightInputToolbarButton.alpha = isEmpty ? 0.0 : 1.0
+            self.rightInputToolbarButton.isEnabled = !isEmpty
+
+            self.voiceMessageToolbarView.alpha = isEmpty ? 1.0 : 0.0
+        }
     }
 }

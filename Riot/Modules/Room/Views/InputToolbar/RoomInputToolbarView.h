@@ -20,6 +20,7 @@
 
 @class RoomActionsBar;
 @class RoomInputToolbarView;
+@class WysiwygHostingView;
 
 /**
  Destination of the message in the composer
@@ -112,6 +113,8 @@ typedef NS_ENUM(NSUInteger, RoomInputToolbarViewSendMode)
 @property (nonatomic, weak, readonly) UIButton *attachMediaButton;
 
 @property (nonatomic, readonly, nonnull) UIFont *textDefaultFont;
+@property (nonatomic, weak) UIView *voiceMessageToolbarView;
+@property (nonatomic, weak) IBOutlet WysiwygHostingView *wysiwygHostingView;
 
 /**
  Adds a voice message toolbar view to be displayed inside this input toolbar
